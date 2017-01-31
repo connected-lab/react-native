@@ -61,6 +61,7 @@ type Props = {
   direction: NavigationGestureDirection,
   navigationState: NavigationState,
   onNavigateBack?: Function,
+  onTransitionEnd?: Function,
   renderHeader: ?NavigationSceneRenderer,
   renderScene: NavigationSceneRenderer,
   cardStyle?: any,
@@ -190,6 +191,11 @@ class NavigationCardStack extends React.Component<DefaultProps, Props, void> {
     onNavigateBack: PropTypes.func,
 
     /**
+     * Callback when the transition is completed
+     */
+    onTransitionEnd: PropTypes.func,
+  
+    /**
      * Function that renders the header.
      */
     renderHeader: PropTypes.func,
@@ -227,6 +233,7 @@ class NavigationCardStack extends React.Component<DefaultProps, Props, void> {
   render(): React.Element<any> {
     return (
       <NavigationTransitioner
+        onTransitionEnd={this.props.onTransitionEnd}
         configureTransition={this._configureTransition}
         navigationState={this.props.navigationState}
         render={this._render}
